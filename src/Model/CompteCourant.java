@@ -41,4 +41,10 @@ public class CompteCourant extends Compte{
                 "decouvert=" + decouvert + " solde " + solde + " code " + code +
                 '}';
     }
+
+    public void versement(double montant){
+        setSolde(getSolde()+montant);
+        System.out.println("versement effectuer avec success ");
+        }
+
 }

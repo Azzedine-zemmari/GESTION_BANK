@@ -43,4 +43,9 @@ public class CompteDepagne extends Compte {
                 " code " + code +
                 '}';
     }
+
+    public void versement(double montant){
+        setSolde(getSolde()+montant);
+        System.out.println("versement effectuer avec success ");
+    }
 }

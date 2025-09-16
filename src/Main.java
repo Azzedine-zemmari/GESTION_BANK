@@ -1,3 +1,4 @@
+import Model.Compte;
 import Model.CompteCourant;
 import Model.CompteDepagne;
 
@@ -11,12 +12,16 @@ public class Main {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Object> comptes = new ArrayList<>();
+        ArrayList<Compte> comptes = new ArrayList<>();
 
         boolean quitter = true;
         while(quitter){
             System.out.println("menu:");
             System.out.println("1 . cree compte");
+            System.out.println("2 . verser a votre compte ");
+            System.out.println("3 . retirer a votre compte ");
+            System.out.println("4 . verser a un autre compte ");
+            System.out.println("5 . Quitter ");
             int choix = scanner.nextInt();
             scanner.nextLine();
             switch (choix){
@@ -50,16 +55,38 @@ public class Main {
                             System.out.println("Compte debagne et cree par sucess");
                             break;
                     }
+                    break;
                 case 2:
+                    System.out.println("enter the code CPT-XXXXX ");
+                    String code = scanner.nextLine();
+                    Compte ACCOUNT = findByCode(comptes,code);
+                    if(ACCOUNT != null){
+                        System.out.println("enter solde du versement ");
+                        double soldeVers = scanner.nextDouble();
+                        scanner.nextLine();
+                        ACCOUNT.versement(soldeVers);
+                        System.out.println("Versement done ");
+                    }
+                    else{
+                        System.out.println("CPT NOT found");
+                    }
+                    break;
+                case 3:
                     for(int i = 0;i<comptes.size();i++){
                         System.out.println(comptes.get(i));
                     }
                     break;
-                case 3:
-                    quitter = false;
-                    System.out.println(" thalaaa ");
-                    break;
             }
         }
     }
+    // search for account by his code
+    public static Compte findByCode(ArrayList<Compte> comptes,String code){
+        for(Compte c : comptes){
+            if(c.getCode().equals(code)){
+                return c;
+            }
+    }
+        return null;
+    }
+
 }

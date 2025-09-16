@@ -42,5 +42,6 @@ public abstract class Compte {
     public abstract void retirer(double montant);
     public abstract double calculerInteret();
     public abstract void afficherDetails();
+    public abstract void versement(double montant);
 
 }
