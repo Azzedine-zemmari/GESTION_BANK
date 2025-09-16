@@ -2,14 +2,15 @@ package Model;
 
 public class CompteCourant extends Compte{
     private int decouvert;
-    public CompteCourant(double solde , int dec){
+    public CompteCourant(double solde , int decouvert){
         super(solde);
-        this.decouvert = dec;
+        this.decouvert = decouvert;
     }
 
     public void retirer(double montant){
-        if(getSolde()-getDecouvert() >= montant){
-            setSolde((getSolde() + getDecouvert())-montant);
+        double total = getSolde() + getDecouvert();
+        if(total >= montant){
+            setSolde(total-montant);
             System.out.println("vous avez retirer ce montant " + montant + " votre solde : " + getSolde());
         }else{
             System.out.println("Vous avez rien a retire (ghyreha)");
@@ -32,5 +33,12 @@ public class CompteCourant extends Compte{
         for(int i = 0;i<getListOperation().size();i++){
             System.out.println(getListOperation().get(i) + "\n");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "CompteCourant{" +
+                "decouvert=" + decouvert + " solde " + solde + " code " + code +
+                '}';
     }
 }

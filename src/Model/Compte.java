@@ -3,10 +3,10 @@ package Model;
 import java.util.ArrayList;
 
 public abstract class Compte {
-    private int competeur  = 0;
-    private String code;
-    private double solde;
-    private ArrayList<Operation> listOperation;
+    protected static int competeur  = 0;
+    protected String code;
+    protected double solde;
+    protected ArrayList<Operation> listOperation;
 
 
     public Compte(double solde) {
@@ -19,9 +19,9 @@ public abstract class Compte {
         return this.code;
     }
 
-    public String CodeGenerator(){
+    public String CodeGenerator() {
         competeur++;
-        return String.format("CPT-0000" + competeur);
+        return String.format("CPT-%05d", competeur);
     }
 
     public double getSolde(){
