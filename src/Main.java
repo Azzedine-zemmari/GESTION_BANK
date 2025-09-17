@@ -76,6 +76,12 @@ public class Main {
                         System.out.println(comptes.get(i));
                     }
                     break;
+                case 4:
+                    System.out.println("enter the code CPT-XXXXX ");
+                    String CPT = scanner.nextLine();
+                    Compte compt = findByCode(comptes,CPT);
+                    System.out.println("solde : " + compt.getSolde());
+                    break;
             }
         }
     }

@@ -3,7 +3,7 @@ package Model;
 import java.util.Date;
 import java.util.UUID;
 
-public class Operation {
+public abstract class Operation {
     private UUID numero;
     private Date date;
     private double montant;
