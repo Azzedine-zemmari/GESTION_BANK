@@ -39,7 +39,7 @@ public abstract class Compte {
     public void setListOperation(ArrayList<Operation> listOperation){
         this.listOperation = listOperation;
     }
-    public abstract void retirer(double montant);
+    public abstract void retirer(double montant,Destination destination);
     public abstract double calculerInteret();
     public abstract void afficherDetails();
     public abstract void versement(double montant,Source source);

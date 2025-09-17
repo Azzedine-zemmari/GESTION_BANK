@@ -96,6 +96,25 @@ public class Main {
                     Compte acc = findByCode(comptes,CP);
                     acc.afficherDetails();
                     break;
+                case 6:
+                    System.out.println("enter the code CPT-XXXXX");
+                    String cp = scanner.nextLine();
+                    Compte ac = findByCode(comptes,cp);
+                    if(ac != null){
+                        System.out.println("enter solde du retirer ");
+                        double soldeRetr = scanner.nextDouble();
+                        scanner.nextLine();
+                        for(int i =0;i<Destination.values().length;i++){
+                            System.out.println((i+1) + " " + Destination.values()[i]);
+                        }
+
+                        int DestChoice = scanner.nextInt();
+                        scanner.nextLine();
+                        Destination dest = Destination.values()[DestChoice-1];
+                        ac.retirer(soldeRetr,dest);
+                        break;
+                    }
+
 
             }
         }

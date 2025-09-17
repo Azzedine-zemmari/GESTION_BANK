@@ -18,9 +18,11 @@ public class CompteDepagne extends Compte {
         this.tauxIntert = tauxIntert;
     }
 
-    public void retirer(double montant){
+    public void retirer(double montant,Destination destination){
         if(getSolde() >= montant){
             setSolde(getSolde()-montant);
+            Retrait retrait = new Retrait(UUID.randomUUID(),LocalDate.now(),montant,destination);
+            ajouterOperation(retrait);
             System.out.println("Vous avez retirer " + montant + " votre sole : "+ getSolde());
         }
         else{

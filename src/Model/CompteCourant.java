@@ -1,5 +1,7 @@
 package Model;
 
+import sun.security.krb5.internal.crypto.Des;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -10,10 +12,12 @@ public class CompteCourant extends Compte{
         this.decouvert = decouvert;
     }
 
-    public void retirer(double montant){
+    public void retirer(double montant, Destination destination){
         double total = getSolde() + getDecouvert();
         if(total >= montant){
             setSolde(total-montant);
+            Retrait retrait = new Retrait(UUID.randomUUID(),LocalDate.now(),montant,destination);
+            ajouterOperation(retrait);
             System.out.println("vous avez retirer ce montant " + montant + " votre solde : " + getSolde());
         }else{
             System.out.println("Vous avez rien a retire (ghyreha)");
@@ -37,6 +41,7 @@ public class CompteCourant extends Compte{
             System.out.println(getListOperation().get(i) + "\n");
         }
     }
+
 
     @Override
     public String toString() {
