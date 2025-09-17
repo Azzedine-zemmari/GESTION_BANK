@@ -42,6 +42,10 @@ public abstract class Compte {
     public abstract void retirer(double montant);
     public abstract double calculerInteret();
     public abstract void afficherDetails();
-    public abstract void versement(double montant);
+    public abstract void versement(double montant,Source source);
 
+
+    public void ajouterOperation (Operation op){
+        listOperation.add(op);
+    }
 }

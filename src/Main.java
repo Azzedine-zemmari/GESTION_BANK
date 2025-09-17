@@ -1,9 +1,10 @@
-import Model.Compte;
-import Model.CompteCourant;
-import Model.CompteDepagne;
+import Model.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.UUID;
+
+import static Model.Source.VirementExterne;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -19,9 +20,10 @@ public class Main {
             System.out.println("menu:");
             System.out.println("1 . cree compte");
             System.out.println("2 . verser a votre compte ");
-            System.out.println("3 . retirer a votre compte ");
-            System.out.println("4 . verser a un autre compte ");
-            System.out.println("5 . Quitter ");
+            System.out.println("3 . afficher tout les compte ");
+            System.out.println("4 . afficher solde d'un compte ");
+            System.out.println("5 . afficher details du compte ");
+            System.out.println("6 . Quitter ");
             int choix = scanner.nextInt();
             scanner.nextLine();
             switch (choix){
@@ -64,7 +66,13 @@ public class Main {
                         System.out.println("enter solde du versement ");
                         double soldeVers = scanner.nextDouble();
                         scanner.nextLine();
-                        ACCOUNT.versement(soldeVers);
+                        for(int i =0;i<Source.values().length;i++){
+                            System.out.println((i+1) + " " + Source.values()[i]);
+                        }
+                        int choixSource = scanner.nextInt();
+                        scanner.nextLine();
+                        Source source = Source.values()[choixSource-1];
+                        ACCOUNT.versement(soldeVers,source);
                         System.out.println("Versement done ");
                     }
                     else{
@@ -82,6 +90,13 @@ public class Main {
                     Compte compt = findByCode(comptes,CPT);
                     System.out.println("solde : " + compt.getSolde());
                     break;
+                case 5:
+                    System.out.println("enter the code CPT-XXXXX ");
+                    String CP = scanner.nextLine();
+                    Compte acc = findByCode(comptes,CP);
+                    acc.afficherDetails();
+                    break;
+
             }
         }
     }

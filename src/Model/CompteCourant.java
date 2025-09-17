@@ -1,5 +1,8 @@
 package Model;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
 public class CompteCourant extends Compte{
     private int decouvert;
     public CompteCourant(double solde , int decouvert){
@@ -42,8 +45,10 @@ public class CompteCourant extends Compte{
                 '}';
     }
 
-    public void versement(double montant){
+    public void versement(double montant,Source source){
         setSolde(getSolde()+montant);
+        Versement v = new Versement(UUID.randomUUID(), LocalDate.now(),montant, source);
+        ajouterOperation(v);
         System.out.println("versement effectuer avec success ");
         }
 

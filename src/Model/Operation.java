@@ -1,14 +1,17 @@
 package Model;
 
+import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
 public abstract class Operation {
     private UUID numero;
-    private Date date;
+    private LocalDate date;
     private double montant;
 
-    public Operation(UUID numero, Date date, double montant) {
+    public Operation(UUID numero, LocalDate date, double montant) {
         this.numero = numero;
         this.date = date;
         this.montant = montant;
@@ -22,11 +25,11 @@ public abstract class Operation {
         this.numero = numero;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
