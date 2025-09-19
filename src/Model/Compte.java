@@ -43,7 +43,7 @@ public abstract class Compte {
     public abstract double calculerInteret();
     public abstract void afficherDetails();
     public abstract void versement(double montant,Source source);
-
+    public abstract void virement(double montant , Compte destinataire , Compte source , Source typeSource,Destination destination);
 
     public void ajouterOperation (Operation op){
         listOperation.add(op);

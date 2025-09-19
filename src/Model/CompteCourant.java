@@ -13,14 +13,16 @@ public class CompteCourant extends Compte{
     }
 
     public void retirer(double montant, Destination destination){
-        double total = getSolde() + getDecouvert();
-        if(total >= montant){
-            setSolde(total-montant);
+        if (montant <= 0){
+            throw new IllegalArgumentException("Le montant doit etre positif");
+        }
+        if(solde - montant >= -decouvert){
+            setSolde(solde-montant);
             Retrait retrait = new Retrait(UUID.randomUUID(),LocalDate.now(),montant,destination);
             ajouterOperation(retrait);
             System.out.println("vous avez retirer ce montant " + montant + " votre solde : " + getSolde());
         }else{
-            System.out.println("Vous avez rien a retire (ghyreha)");
+            throw new IllegalStateException("Solde insuffisant pour effectuer le retrait");
         }
     }
 
@@ -56,5 +58,19 @@ public class CompteCourant extends Compte{
         ajouterOperation(v);
         System.out.println("versement effectuer avec success ");
         }
+    public void virement(double montant , Compte destinataire , Compte source , Source typeSource , Destination destination){
+//        double soldeA = destinataire.getSolde();
+//        double soldeB = source.getSolde();
+//
+//        setSolde(soldeA + montant);
+//        setSolde(soldeB - montant);
+
+        source.retirer(montant,destination);
+        destinataire.versement(montant,typeSource);
+
+        System.out.println("virement effectuer avec success ");
+
+
+    }
 
 }
