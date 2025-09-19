@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class CompteCourant extends Compte{
-    private int decouvert;
-    public CompteCourant(double solde , int decouvert){
+    private double decouvert;
+    public CompteCourant(double solde , double decouvert){
         super(solde);
         this.decouvert = decouvert;
     }
@@ -26,17 +26,14 @@ public class CompteCourant extends Compte{
         }
     }
 
-    public int getDecouvert() {
+    public double getDecouvert() {
         return decouvert;
     }
 
-    public void setDecouvert(int decouvert) {
+    public void setDecouvert(double decouvert) {
         this.decouvert = decouvert;
     }
 
-    public double calculerInteret(){
-        return 0;
-    }
     public void afficherDetails(){
         System.out.println("Details : \n" + "Code : "+ getCode()+ "\n" + "Sold : "+ getSolde() + "Operation ");
         for(int i = 0;i<getListOperation().size();i++){
@@ -72,5 +69,6 @@ public class CompteCourant extends Compte{
 
 
     }
+    public void calculerInteret(){}
 
 }

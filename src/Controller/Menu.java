@@ -27,6 +27,7 @@ public void start(){
         System.out.println("5 . afficher details du compte ");
         System.out.println("6 . retirer ");
         System.out.println("7 . virement ");
+        System.out.println("8 . calcul interet");
         System.out.println("0 . quitter ");
 
         int choix = scanner.nextInt();
@@ -40,6 +41,7 @@ public void start(){
             case 5 : afficherDetails();break;
             case 6 : retirer();break;
             case 7 : virement();break;
+            case 8 : calculInteret();break;
             case 0 : quitter = false;break;
             default : System.out.println("Choix invalide !");break;
         }
@@ -66,7 +68,7 @@ public void creeCompte(){
             double solde = scanner.nextDouble();
             scanner.nextLine();
             System.out.println("Entrer votre decouvert ");
-            int decouvert = scanner.nextInt();
+            double decouvert = scanner.nextDouble();
             scanner.nextLine();
             CompteCourant cc = new CompteCourant(solde,decouvert);
             comptes.add(cc);
@@ -74,18 +76,22 @@ public void creeCompte(){
             break;
         case 2:
             System.out.println("Entrer votre solde ");
-            double SOLDE = scanner.nextDouble();
+            Double SOLDE = scanner.nextDouble();
             scanner.nextLine();
             System.out.println("Entrer votre taux interet ");
-            int tauxIntert = scanner.nextInt();
+            Double tauxIntert = scanner.nextDouble();
             scanner.nextLine();
             CompteDepagne dd = new CompteDepagne(SOLDE,tauxIntert);
             comptes.add(dd);
-            System.out.println("Compte debagne et cree par sucess");
+            System.out.println(dd);
+
+//
             break;
     }
     }catch (InputMismatchException e){
-        System.out.println("Erreur vous devez enter nomber");
+
+
+        System.out.println(e.getMessage());
         scanner.nextLine();
     }
 }
@@ -209,6 +215,17 @@ private void afficherComptes(){
             System.out.println("CPT not found");
         }
 
+    }
+    private void calculInteret(){
+        System.out.println("Entrer votre compte : CPT-XXXXX");
+        String compte = scanner.nextLine();
+        Compte account = findByCode(comptes,compte);
+        if(account != null && account instanceof CompteDepagne){
+            account.calculerInteret();
+        }
+        else {
+            System.out.println("votre compte n exsite pas ");
+        }
     }
 
 }

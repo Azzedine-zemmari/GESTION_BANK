@@ -4,17 +4,17 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class CompteDepagne extends Compte {
-    private int tauxIntert;
-    public CompteDepagne(double sold,int taux){
+    private Double tauxIntert;
+    public CompteDepagne(Double sold,Double taux){
         super(sold);
         tauxIntert = taux;
     }
 
-    public int getTauxIntert() {
+    public Double getTauxIntert() {
         return tauxIntert;
     }
 
-    public void setTauxIntert(int tauxIntert) {
+    public void setTauxIntert(Double tauxIntert) {
         this.tauxIntert = tauxIntert;
     }
 
@@ -36,10 +36,6 @@ public class CompteDepagne extends Compte {
             System.out.println(getListOperation().get(i) + "\n");
         }
     }
-    public double calculerInteret(){
-        return 0;
-    }
-
     @Override
     public String toString() {
         return "CompteDepagne{" +
@@ -68,4 +64,11 @@ public class CompteDepagne extends Compte {
         System.out.println("virement effectuer avec success ");
 
 
-    }}
+    }
+    public void calculerInteret(){
+        Double result = solde * tauxIntert;
+        setSolde(solde + result);
+        System.out.println("votre solde avec l interet et : " + solde);
+    }
+
+}
