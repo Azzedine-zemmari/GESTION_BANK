@@ -52,11 +52,6 @@ public class CompteDepagne extends Compte {
         System.out.println("versement effectuer avec success ");
     }
     public void virement(double montant , Compte destinataire , Compte source , Source typeSource , Destination destination){
-//        double soldeA = destinataire.getSolde();
-//        double soldeB = source.getSolde();
-//
-//        setSolde(soldeA + montant);
-//        setSolde(soldeB - montant);
 
         source.retirer(montant,destination);
         destinataire.versement(montant,typeSource);

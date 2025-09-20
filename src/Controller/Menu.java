@@ -87,12 +87,13 @@ public void creeCompte(){
 
 //
             break;
+        default:System.out.println("Choix invalide (1 ou 2 seulement)");
     }
     }catch (InputMismatchException e){
-
-
-        System.out.println(e.getMessage());
+        System.out.println("Erreur : vous devez entrer un nombre valide !");
         scanner.nextLine();
+    }catch (Exception e){
+        System.out.println("Une erreur est survenue : " + e.getMessage());
     }
 }
     // search for account by his code
@@ -111,9 +112,13 @@ public void verser(){
     String code = scanner.nextLine();
     Compte ACCOUNT = findByCode(comptes,code);
     if(ACCOUNT != null){
+
         System.out.println("enter solde du versement ");
         double soldeVers = scanner.nextDouble();
         scanner.nextLine();
+
+        if (soldeVers <= 0) throw new IllegalArgumentException("Montant invalide (doit être positif).");
+
         System.out.println("Quelle method tu prefere pour verser : ");
         System.out.println("------------------------");
         for(int i = 0; i< Source.values().length; i++){
@@ -123,6 +128,10 @@ public void verser(){
 
         int choixSource = scanner.nextInt();
         scanner.nextLine();
+
+        if (choixSource < 1 || choixSource > Source.values().length) {
+            throw new IllegalArgumentException("Choix de source invalide.");
+        }
         Source source = Source.values()[choixSource-1];
         ACCOUNT.versement(soldeVers,source);
         System.out.println("Versement done ");
@@ -132,12 +141,17 @@ public void verser(){
     }
     }catch (InputMismatchException e){
         System.out.println("Erreur vous devez enter nomber");
+    }catch (Exception e) {
+        System.out.println("Une erreur est survenue : " + e.getMessage());
     }
 }
 private void afficherComptes(){
+    if (comptes.isEmpty()) {
+        System.out.println(" Aucun compte enregistré !");
+    } else {
     for(Compte c : comptes){
         System.out.println(c);
-    }
+    }}
 }
     private void afficherSolde() {
         System.out.println("enter the code CPT-XXXXX ");
@@ -160,6 +174,8 @@ private void afficherComptes(){
         }
     }
     private void retirer(){
+    try{
+
         System.out.println("enter the code CPT-XXXXX");
         String cp = scanner.nextLine();
         Compte ac = findByCode(comptes,cp);
@@ -167,19 +183,34 @@ private void afficherComptes(){
             System.out.println("enter solde du retirer ");
             double soldeRetr = scanner.nextDouble();
             scanner.nextLine();
+            if (soldeRetr <= 0) throw new IllegalArgumentException("Montant doit être positif !");
+            System.out.println("Method de retirer :");
             for(int i = 0; i< Destination.values().length; i++){
                 System.out.println((i+1) + " " + Destination.values()[i]);
             }
 
             int DestChoice = scanner.nextInt();
             scanner.nextLine();
+
+            if (DestChoice < 1 || DestChoice > Destination.values().length) {
+                throw new IllegalArgumentException("Choix de destination invalide !");
+            }
+
             Destination dest = Destination.values()[DestChoice-1];
             ac.retirer(soldeRetr,dest);
         }else{
             System.out.println("Compte not found");
         }
+    }catch (InputMismatchException e){
+        System.out.println("Erreur : entrez un nombre valide !");
+        scanner.nextLine();
+    }catch (Exception e){
+        System.out.println(" Erreur : " + e.getMessage());
+    }
     }
     private void virement(){
+    try{
+
         System.out.println("enter the code du source CPT-XXXXX");
         String Cp1 = scanner.nextLine();
         Compte Ac1 = findByCode(comptes,Cp1);
@@ -193,20 +224,32 @@ private void afficherComptes(){
             double soldeVerm = scanner.nextDouble();
             scanner.nextLine();
 
+            if (soldeVerm <= 0) throw new IllegalArgumentException("Montant doit être positif !");
+
 //                       type source du virement
+            System.out.println("source du virement : ");
             for(int i =0;i<Source.values().length;i++){
                 System.out.println((i+1) + " " + Source.values()[i]);
             }
             int choixSource = scanner.nextInt();
             scanner.nextLine();
-            Source source = Source.values()[choixSource-1];
 
+            if(choixSource < 0 || choixSource > Source.values().length){
+                throw  new IllegalArgumentException("Choix source invalide !");
+            }
+
+            Source source = Source.values()[choixSource-1];
 //                        type du destination du virement
+            System.out.println("destination du virement : ");
             for(int i = 0;i<Destination.values().length;i++){
                 System.out.println((i+1) + " " + Destination.values()[i]);
             }
             int choixDestination = scanner.nextInt();
             scanner.nextLine();
+
+            if(choixDestination < 0 || choixDestination > Source.values().length){
+                throw  new IllegalArgumentException("Choix Destination invalide !");
+            }
             Destination destination = Destination.values()[choixDestination-1];
 
             Ac1.virement(soldeVerm,Ac2,Ac1,source,destination);
@@ -214,18 +257,29 @@ private void afficherComptes(){
         }else{
             System.out.println("CPT not found");
         }
+    }catch (InputMismatchException e){
+        System.out.println("Erreur : entrer un nombre invalide");
+        scanner.nextLine();
+    }catch (Exception e ){
+        System.out.println("Erreur : "+e.getMessage());
+    }
 
     }
     private void calculInteret(){
+    try{
         System.out.println("Entrer votre compte : CPT-XXXXX");
         String compte = scanner.nextLine();
         Compte account = findByCode(comptes,compte);
         if(account != null && account instanceof CompteDepagne){
             account.calculerInteret();
+            System.out.println(" Intérêt calculé avec succès !");
         }
         else {
             System.out.println("votre compte n exsite pas ");
         }
+    }catch (Exception e){
+        System.out.println("Erreur lors du calcul d’intérêt : " + e.getMessage());
+    }
     }
 
 }
