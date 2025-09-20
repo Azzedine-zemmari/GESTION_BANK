@@ -5,8 +5,9 @@ import java.util.UUID;
 
 public class Retrait extends Operation {
     private Destination destination;
-    public Retrait(UUID numero , LocalDate date, double montant , Destination destination){
-        super(numero ,date,montant);
+
+    public Retrait(UUID numero, LocalDate date, double montant, Destination destination) {
+        super(numero, date, montant);
         this.destination = destination;
     }
 

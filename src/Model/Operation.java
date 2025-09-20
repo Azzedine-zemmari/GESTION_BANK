@@ -1,9 +1,6 @@
 package Model;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.UUID;
 
 public abstract class Operation {
@@ -43,10 +40,6 @@ public abstract class Operation {
 
     @Override
     public String toString() {
-        return "Operation{" +
-                "numero=" + numero +
-                ", date=" + date +
-                ", montant=" + montant +
-                '}';
+        return "Operation{" + "numero=" + numero + ", date=" + date + ", montant=" + montant + '}';
     }
 }

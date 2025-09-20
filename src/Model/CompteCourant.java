@@ -1,27 +1,27 @@
 package Model;
 
-import sun.security.krb5.internal.crypto.Des;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class CompteCourant extends Compte{
+public class CompteCourant extends Compte {
     private double decouvert;
-    public CompteCourant(double solde , double decouvert){
+
+    public CompteCourant(double solde, double decouvert) {
         super(solde);
         this.decouvert = decouvert;
     }
 
-    public void retirer(double montant, Destination destination){
-        if (montant <= 0){
+    public void retirer(double montant, Destination destination) {
+        if (montant <= 0) {
             throw new IllegalArgumentException("Le montant doit etre positif");
         }
-        if(solde - montant >= -decouvert){
-            setSolde(solde-montant);
-            Retrait retrait = new Retrait(UUID.randomUUID(),LocalDate.now(),montant,destination);
+        if (solde - montant >= -decouvert) {
+            setSolde(solde - montant);
+            Retrait retrait = new Retrait(UUID.randomUUID(), LocalDate.now(), montant, destination);
             ajouterOperation(retrait);
             System.out.println("vous avez retirer ce montant " + montant + " votre solde : " + getSolde());
-        }else{
+        } else {
             throw new IllegalStateException("Solde insuffisant pour effectuer le retrait");
         }
     }
@@ -34,9 +34,9 @@ public class CompteCourant extends Compte{
         this.decouvert = decouvert;
     }
 
-    public void afficherDetails(){
-        System.out.println("Details : \n" + "Code : "+ getCode()+ "\n" + "Sold : "+ getSolde() + "Operation ");
-        for(int i = 0;i<getListOperation().size();i++){
+    public void afficherDetails() {
+        System.out.println("Details : \n" + "Code : " + getCode() + "\n" + "Sold : " + getSolde() + "Operation ");
+        for (int i = 0; i < getListOperation().size(); i++) {
             System.out.println(getListOperation().get(i) + "\n");
         }
     }
@@ -49,21 +49,24 @@ public class CompteCourant extends Compte{
                 '}';
     }
 
-    public void versement(double montant,Source source){
-        setSolde(getSolde()+montant);
-        Versement v = new Versement(UUID.randomUUID(), LocalDate.now(),montant, source);
+    public void versement(double montant, Source source) {
+        setSolde(getSolde() + montant);
+        Versement v = new Versement(UUID.randomUUID(), LocalDate.now(), montant, source);
         ajouterOperation(v);
         System.out.println("versement effectuer avec success ");
-        }
-    public void virement(double montant , Compte destinataire , Compte source , Source typeSource , Destination destination){
+    }
 
-        source.retirer(montant,destination);
-        destinataire.versement(montant,typeSource);
+    public void virement(double montant, Compte destinataire, Compte source, Source typeSource, Destination destination) {
+
+        source.retirer(montant, destination);
+        destinataire.versement(montant, typeSource);
 
         System.out.println("virement effectuer avec success ");
 
 
     }
-    public void calculerInteret(){}
+
+    public void calculerInteret() {
+    }
 
 }
