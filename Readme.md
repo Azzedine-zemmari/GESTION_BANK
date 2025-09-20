@@ -23,3 +23,34 @@ L’application offre des fonctionnalités comme :
 - **Collections (ArrayList)**
 
 ---
+---
+## 📂 Class Overview
+- **Compte (Abstract class)**
+  - Attribute : competeur , code , solde , listOperation
+  - Abstract method : retirer(),afficherDetails(),versement(),virement(),calculerInteret()
+- **CompteCourant (Inherits Compte)**
+  - Extra attribute : decouvert
+- **CompteDepagne (Inherits Compte)**
+  - Extra attribue : tauxIntert
+- **Operation (Abstract class)**
+  - Attribute: numero , date , montant
+- **Retrait (Inherits Operation)**
+  - Extra Attribute : destination
+- **Versement (Inherits Operation)**
+  - Extra Attribute : source-
+---
+## ✅ Prerequisites
+Before running the project, make sure you have:
+
+- Java 8 or higher installed
+- A terminal/command line interface
+- (Optional) IntelliJ IDEA or Eclipse for development
+---
+## ✨ Astuce
+for double value use , not . 
+- Exemple : 3,02 not 3.02
+---
+## 🖼 Screenshots
+![menu global](./images/MenuGlobal.png)
+![cree compte](./images/CreeCompte.png)
+etc ...
