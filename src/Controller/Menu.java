@@ -224,6 +224,8 @@ private void afficherComptes(){
             double soldeVerm = scanner.nextDouble();
             scanner.nextLine();
 
+            if(Ac1.getSolde() < soldeVerm) throw new IllegalArgumentException("Solde insuffisant");
+
             if (soldeVerm <= 0) throw new IllegalArgumentException("Montant doit être positif !");
 
 //                       type source du virement
